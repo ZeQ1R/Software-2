@@ -1,8 +1,8 @@
 import {useState,useEffect} from 'react'
 import {Routes,Route,Navigate} from 'react-router-dom'
 import {supabase} from './lib/supabase'
-import {AuthPage} from './pages/AuthPage'
-import {BudgetPage} from './pages/BudgetPage'
+import AuthPage from './pages/AuthPage'
+import BudgetPage from './pages/BudgetPage'
 
 export default function App() {
   const [session, setSession] = useState(undefined) // undefined = loading
