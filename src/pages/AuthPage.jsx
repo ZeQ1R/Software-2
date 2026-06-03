@@ -196,12 +196,130 @@ export default function AuthPage() {
         </div>
 
        
-        {!isCompact && (
+               {!isCompact && (
           <div style={{
             position: 'absolute', top: 0, right: -1, width: 1, height: '100%',
             background: 'linear-gradient(to bottom, transparent 0%, rgba(232,168,124,0.3) 40%, rgba(232,168,124,0.3) 60%, transparent 100%)',
           }} />
         )}
+      </div>
+      
+   
+      <div style={rightPanelStyle}>
+        <div style={{ width: '100%', maxWidth: isPhone ? '100%' : 420 }}>
+          {/* Tab switcher */}
+          <div style={{
+            display: 'flex', gap: 0, marginBottom: isPhone ? 28 : 36,
+            border: '1px solid rgba(232,224,213,0.1)', borderRadius: 12, padding: 4,
+            background: 'rgba(255,255,255,0.02)',
+          }}>
+            {['login', 'signup'].map(m => (
+              <button key={m} onClick={() => { setMode(m); setError(''); setSuccess(''); }}
+                style={{
+                  flex: 1, padding: isPhone ? '9px' : '10px', borderRadius: 9, border: 'none', cursor: 'pointer',
+                  background: mode === m ? 'rgba(232,168,124,0.15)' : 'transparent',
+                  color: mode === m ? '#E8A87C' : '#5A5550',
+                  fontSize: 12, letterSpacing: isPhone ? 1 : 2, textTransform: 'uppercase',
+                  fontFamily: "'DM Mono', monospace",
+                  transition: 'all 0.2s',
+                }}>
+                {m === 'login' ? 'Sign In' : 'Sign Up'}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ marginBottom: isPhone ? 24 : 32 }}>
+            <h2 style={{ fontSize: isPhone ? 24 : 28, fontWeight: 400, color: '#F5EFE8', marginBottom: 8, marginTop: 0 }}>
+              {mode === 'login' ? 'Welcome back' : 'Create account'}
+            </h2>
+            <p style={{ fontSize: isPhone ? 13 : 14, color: '#5A5550', fontFamily: "'DM Mono', monospace", margin: 0 }}>
+              {mode === 'login' ? 'Sign in to access your budget' : 'Start tracking your finances today'}
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: isPhone ? 16 : 20 }}>
+            {mode === 'signup' && (
+              <>
+                <div>
+                  <label style={labelStyle}>Full Name</label>
+                  <input
+                    type="text" placeholder="Your name" value={form.fullName}
+                    onChange={set('fullName')} required style={inputStyle}
+                    onFocus={e => e.target.style.borderColor = 'rgba(232,168,124,0.4)'}
+                    onBlur={e => e.target.style.borderColor = 'rgba(232,224,213,0.12)'}
+                  />
+                </div>
+                <div>
+                  <label style={labelStyle}>Currency</label>
+                  <select
+                    value={form.currency}
+                    onChange={set('currency')}
+                    required
+                    style={{ ...inputStyle, appearance: 'none', cursor: 'pointer' }}
+                    onFocus={e => e.target.style.borderColor = 'rgba(232,168,124,0.4)'}
+                    onBlur={e => e.target.style.borderColor = 'rgba(232,224,213,0.12)'}
+                  >
+                    {CURRENCIES.map((currency) => (
+                      <option key={currency.code} value={currency.code} style={{ background: '#0A0A0C', color: '#E8E0D5' }}>
+                        {currency.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
+
+            <div>
+              <label style={labelStyle}>Email Address</label>
+              <input
+                type="email" placeholder="you@example.com" value={form.email}
+                onChange={set('email')} required style={inputStyle}
+                onFocus={e => e.target.style.borderColor = 'rgba(232,168,124,0.4)'}
+                onBlur={e => e.target.style.borderColor = 'rgba(232,224,213,0.12)'}
+              />
+            </div>
+
+            <div>
+              <label style={labelStyle}>Password</label>
+              <input
+                type="password" placeholder={mode === 'signup' ? 'Min. 6 characters' : '••••••••'}
+                value={form.password} onChange={set('password')} required minLength={6}
+                style={inputStyle}
+                onFocus={e => e.target.style.borderColor = 'rgba(232,168,124,0.4)'}
+                onBlur={e => e.target.style.borderColor = 'rgba(232,224,213,0.12)'}
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width: '100%',
+                padding: isPhone ? '12px 14px' : '14px 16px',
+                marginTop: 4,
+                borderRadius: 10,
+                border: 'none',
+                cursor: 'pointer',
+                background: '#E8A87C',
+                color: '#0A0A0C',
+                fontWeight: 600,
+                fontSize: 14,
+                fontFamily: "'DM Mono', monospace",
+              }}
+            >
+              {loading ? 'Please wait...' : mode === 'signup' ? 'Create account' : 'Sign in'}
+            </button>
+            {error && (
+              <div style={{ marginTop: 12, color: '#F28779', fontSize: 13, fontFamily: "'DM Mono', monospace" }}>
+                {error}
+              </div>
+            )}
+            {success && (
+              <div style={{ marginTop: 12, color: '#A3D9A5', fontSize: 13, fontFamily: "'DM Mono', monospace" }}>
+                {success}
+              </div>
+            )}
+          </form>
+        </div>
       </div>
     </div>
   )
