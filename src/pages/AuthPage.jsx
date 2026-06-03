@@ -47,8 +47,8 @@ export default function AuthPage() {
   const [viewportWidth, setViewportWidth] = useState(() =>
     typeof window === 'undefined' ? 1280 : window.innerWidth
   )
-}
- useEffect(() => {
+
+  useEffect(() => {
     const onResize = () => setViewportWidth(window.innerWidth)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
@@ -140,3 +140,69 @@ export default function AuthPage() {
     padding: isPhone ? '24px 16px 34px' : isTablet ? '34px 30px 42px' : '60px 48px',
     position: 'relative',
   }
+    return (
+    <div style={{ ...styles.page, flexDirection: isCompact ? 'column' : 'row', overflowY: 'auto' }}>
+      <div style={styles.bg} />
+      <div style={styles.grid} />
+
+      
+      <div style={leftPanelStyle}>
+        <div style={{ marginBottom: isCompact ? 20 : 'auto', paddingBottom: isCompact ? 0 : 60 }}>
+          <div style={{ fontSize: 11, letterSpacing: isPhone ? 3 : 5, color: '#E8A87C', textTransform: 'uppercase', marginBottom: 16, fontFamily: "'DM Mono', monospace" }}>
+            Personal Finance
+          </div>
+          <h1 style={{
+            fontSize: isPhone ? 46 : isTablet ? 54 : 64,
+            fontWeight: 300,
+            color: '#F5EFE8',
+            lineHeight: 1.05,
+            letterSpacing: isPhone ? -1 : -2,
+            marginBottom: 16,
+            marginTop: 0,
+          }}>
+            Budget<br />
+            <em style={{ color: '#E8A87C', fontStyle: 'italic' }}>Ledger</em>
+          </h1>
+          <p style={{
+            fontSize: isPhone ? 15 : 18,
+            color: '#7A7570',
+            lineHeight: 1.6,
+            fontWeight: 300,
+            maxWidth: isPhone ? '100%' : 360,
+            margin: 0,
+          }}>
+            Your personal finance companion. Track every expense, understand your spending, and take control of your money.
+          </p>
+        </div>
+
+      
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: isPhone ? '1fr' : isTablet ? '1fr 1fr' : '1fr',
+          gap: isPhone ? 12 : 16,
+          width: '100%',
+        }}>
+          {[
+            { icon: '◈', text: 'Track expenses by month & category' },
+            { icon: '◉', text: 'Visual spending breakdowns' },
+            { icon: '◎', text: 'Your data, securely stored' },
+            { icon: '◐', text: 'Access from any device' },
+          ].map(f => (
+            <div key={f.text} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ color: '#E8A87C', fontSize: isPhone ? 13 : 14 }}>{f.icon}</span>
+              <span style={{ fontSize: isPhone ? 12 : 14, color: '#5A5550', fontFamily: "'DM Mono', monospace" }}>{f.text}</span>
+            </div>
+          ))}
+        </div>
+
+       
+        {!isCompact && (
+          <div style={{
+            position: 'absolute', top: 0, right: -1, width: 1, height: '100%',
+            background: 'linear-gradient(to bottom, transparent 0%, rgba(232,168,124,0.3) 40%, rgba(232,168,124,0.3) 60%, transparent 100%)',
+          }} />
+        )}
+      </div>
+    </div>
+  )
+}
