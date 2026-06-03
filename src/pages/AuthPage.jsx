@@ -97,3 +97,46 @@ export default function AuthPage() {
       setLoading(false)
     }
   }
+   const inputStyle = {
+    width: '100%',
+    background: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(232,224,213,0.12)',
+    borderRadius: 10,
+    padding: isPhone ? '12px 14px' : '14px 16px',
+    color: '#E8E0D5',
+    fontSize: isPhone ? 14 : 15,
+    fontFamily: "'DM Mono', monospace",
+    outline: 'none',
+    transition: 'border-color 0.2s',
+    boxSizing: 'border-box',
+  }
+
+  const labelStyle = {
+    display: 'block',
+    fontSize: 10,
+    letterSpacing: isPhone ? 2 : 3,
+    color: '#7A7570',
+    textTransform: 'uppercase',
+    marginBottom: 8,
+    fontFamily: "'DM Mono', monospace",
+  }
+
+  const leftPanelStyle = {
+    flex: isCompact ? '0 0 auto' : '0 0 48%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: isPhone ? '36px 22px 20px' : isTablet ? '46px 36px 26px' : '60px 64px',
+    position: 'relative',
+    borderRight: isCompact ? 'none' : '1px solid rgba(232,224,213,0.06)',
+    borderBottom: isCompact ? '1px solid rgba(232,224,213,0.08)' : 'none',
+  }
+
+  const rightPanelStyle = {
+    flex: 1,
+    display: 'flex',
+    alignItems: isCompact ? 'flex-start' : 'center',
+    justifyContent: 'center',
+    padding: isPhone ? '24px 16px 34px' : isTablet ? '34px 30px 42px' : '60px 48px',
+    position: 'relative',
+  }
